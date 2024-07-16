@@ -4,10 +4,9 @@ import Newpost from "./Newpost";
 import Modal from "./Modal";
 import styles from "./PostList.module.css";
 
-function PostList() {
+function PostList({isPosting, handleVisble}) {
   const [text, setText] = useState("");
   const [author, setAuthor] = useState("");
-  const [isVisble, setIsVisble] = useState(true);
 
   function changeHandler(event) {
     setText(event.target.value);
@@ -15,14 +14,11 @@ function PostList() {
   function changeAuthor(event) {
     setAuthor(event.target.value);
   }
-  function handleVisble() {
-    setIsVisble(!isVisble);
-  }
   return (
     <>
-      {isVisble && (
+      {isPosting && (
         <Modal onClose={handleVisble}>
-          <Newpost change={changeHandler} author={changeAuthor} />
+          <Newpost change={changeHandler} author={changeAuthor} cancel={handleVisble}/>
         </Modal>
       )}
       <ul className={styles.posts}>
