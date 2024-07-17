@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./NewPost.module.css";
 
 
-function Newpost({onCancel}) {
+function Newpost({onCancel, newPostHandler}) {
   const [text, setText] = useState("");
   const [author, setAuthor] = useState("");
 
@@ -19,7 +19,7 @@ function Newpost({onCancel}) {
       body : text,
       author: author
     } 
-    console.log(postData)
+    newPostHandler(postData)
     onCancel();
   }
   return (
