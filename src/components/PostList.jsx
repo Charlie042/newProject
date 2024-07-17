@@ -18,18 +18,18 @@ function PostList({isPosting, handleVisble}) {
           <Newpost onCancel={handleVisble} newPostHandler={newPostHandler} />
         </Modal>
       )}
-      {posts.length === 0 && (
+      {posts.length > 0 && (
         <ul className={styles.posts}>
           {posts.map((post, index) => (
             <Post key={index} author={post.author} body={post.body} />
           ))}
-          {posts.length === 0 && (
-            <div style={{textAlign: 'center'}}>
-              <h2>There is no post yet!</h2>
-              <p>Add one</p>
-            </div>
-          )}
         </ul>
+      )}
+      {posts.length === 0 && (
+        <div style={{ textAlign: "center" }}>
+          <h2>There is no post yet!</h2>
+          <p>Add one</p>
+        </div>
       )}
     </>
   );
