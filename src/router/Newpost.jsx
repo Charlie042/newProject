@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styles from "./NewPost.module.css";
+import Modal from "../components/Modal";
+import { Link } from "react-router-dom";
 
 
-function Newpost({onCancel, newPostHandler}) {
+function Newpost({ newPostHandler}) {
   const [text, setText] = useState("");
   const [author, setAuthor] = useState("");
 
@@ -20,11 +22,11 @@ function Newpost({onCancel, newPostHandler}) {
       author: author
     } 
     newPostHandler(postData)
-    onCancel();
+    
   }
   return (
-  
-      <form className={styles.form}  onSubmit={handleSubmit}>
+    <Modal>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <p>
           <label htmlFor="body">Text</label>
           <textarea id="body" required rows={3} onChange={changeHandler} />
@@ -34,12 +36,12 @@ function Newpost({onCancel, newPostHandler}) {
           <input type="text" id="name" required onChange={changeAuthor} />
         </p>
 
-        <p className = {styles.actions}>
-          <button onClick={onCancel}>Cancel</button>
-          <button>Submit</button>
+        <p className={styles.actions}>
+          <Link to={'/'}>Cancel</Link>
+          <button onClick={handleSubmit}>Submit</button>
         </p>
       </form>
-    
+    </Modal>
   );
 }
 

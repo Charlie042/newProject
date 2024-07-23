@@ -1,10 +1,10 @@
 import styles from './Post.module.css'
 
-function Post(props) {
+function Post({author,body}) {
   return (
     <ul className={styles.post}>
-      <p className={styles.author}>{props.author}</p>
-      <p className={styles.body}>{props.body}</p>
+      <p className={styles.author}>{author}</p>
+      <p className={styles.body}>{body}</p>
     </ul>
   );
 }
