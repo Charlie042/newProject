@@ -1,48 +1,43 @@
-import { useState } from "react";
 import styles from "./NewPost.module.css";
 import Modal from "../components/Modal";
-import { Link } from "react-router-dom";
+import { Link,Form,redirect} from "react-router-dom";
 
 
-function Newpost({ newPostHandler}) {
-  const [text, setText] = useState("");
-  const [author, setAuthor] = useState("");
-
-  function changeHandler(event) {
-    setText(event.target.value);
-  }
-  function changeAuthor(event) {
-    setAuthor(event.target.value);
-  }
-
-  function handleSubmit(event){
-    event.preventDefault();
-    const postData = {
-      body : text,
-      author: author
-    } 
-    newPostHandler(postData)
-    
-  }
+function Newpost() {
+ 
   return (
     <Modal>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <Form method='post' className={styles.form}>
         <p>
           <label htmlFor="body">Text</label>
-          <textarea id="body" required rows={3} onChange={changeHandler} />
+          <textarea id="body" required rows={3} name="body" />
         </p>
         <p>
           <label htmlFor="name">Name</label>
-          <input type="text" id="name" required onChange={changeAuthor} />
+          <input type="text" id="name" required name="author" />
         </p>
 
         <p className={styles.actions}>
           <Link to={'/'}>Cancel</Link>
-          <button onClick={handleSubmit}>Submit</button>
+          <button>Submit</button>
         </p>
-      </form>
+      </Form>
     </Modal>
   );
+}
+
+export async function actionHandler ({request}){
+   
+  const fetchData = await request.formData();
+  const postData = Object.fromEntries(fetchData)
+  await fetch("http://localhost:8080/posts", {
+     method: "POST",
+     body: JSON.stringify(postData),
+     headers: {
+       "Content-Type": "application/json",
+     },
+   });
+    return redirect('/')
 }
 
 export default Newpost;

@@ -4,20 +4,8 @@ import Newpost from "../router/Newpost";
 import Modal from "./Modal";
 import styles from "./PostList.module.css";
 
-function PostList({ isPosting, handleVisble }) {
+function PostList() {
   const posts = useLoaderData();
-
-
-  function newPostHandler(postData) {
-    fetch("http://localhost:8080/posts", {
-      method: "POST",
-      body: JSON.stringify(postData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    setPosts((exstingPost) => [postData, ...exstingPost]);
-  }
   return (
     <>
   
